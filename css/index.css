@@ -271,7 +271,7 @@ select {
 
 .hero {
   background-position: center;
-  background-image: url(/images/bg-pattern-intro-desktop.svg), linear-gradient(90deg, hsl(13, 100%, 72%), hsl(353, 100%, 62%));
+  background-image: url(images/bg-pattern-intro-desktop.svg), linear-gradient(90deg, hsl(13, 100%, 72%), hsl(353, 100%, 62%));
   color: var(--clr-neutral-900);
   height: 600px;
   text-align: center;
