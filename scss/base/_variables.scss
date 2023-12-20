@@ -1,0 +1,58 @@
+// Typography
+
+$primary-font: "Ubuntu", system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+  sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+$font-weights: (
+  "light": 300,
+  "regular": 400,
+  "medium": 500,
+  "semibold": 600,
+  "bold": 700,
+);
+
+// Colors
+
+$colors: (
+  primary: (
+    // cta hover background
+    700: hsl(355, 100%, 74%),
+    // cta text
+    600: hsl(356, 100%, 66%),
+    // headings
+    300: hsl(208, 49%, 24%),
+  ),
+  neutral: (
+    900: hsl(0, 0%, 100%),
+    // footer text
+    700: hsl(240, 2%, 79%),
+    // body copy
+    300: hsl(207, 13%, 34%),
+    // footer background
+    200: hsl(240, 10%, 16%),
+  ),
+  gradient: (
+    // intro/cta mobile nav
+    700: hsl(13, 100%, 72%),
+    600: hsl(353, 100%, 62%),
+    // body
+    300: hsl(237, 23%, 32%),
+    200: hsl(237, 17%, 21%),
+  ),
+);
+
+// Other
+
+$breakpoints: (
+  "phone": 375px,
+  "phone-wide": 640px,
+  "tablet": 768px,
+  "laptop": 1024px,
+  "desktop": 1440px,
+);
+
+$z-index: (
+  "base": 0,
+  "hover": 100,
+  "modal": 200,
+);

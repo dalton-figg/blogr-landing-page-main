@@ -1,0 +1,167 @@
+@use "sass:map";
+
+// -- [BROWSER SUPPORT FOCUSED] --
+
+@mixin font-size($px) {
+  font-size: #{$px}px; // [1] - includes support for IE8-
+  font-size: calc-rem($px);
+}
+
+@mixin appearance-reset($background: white) {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: $background;
+}
+
+@mixin smoothing-antialiased {
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// -- [HELPFUL SHORTHAND] --
+
+@mixin max-width($maxwidth, $centered: false) {
+  max-width: $maxwidth; // [1] - sets maxwidth and ensures width 100% so the element fills the space
+  width: 100%;
+
+  // [2] - optional choice to center the content/element or not
+
+  @if $centered {
+    margin: 0 auto;
+  }
+}
+
+// [1] - helpful shorthand to setup a desktop container for content
+
+@mixin container {
+  @include max-width(1440px, true);
+}
+
+@mixin font-weight($weight) {
+  // [1] - shorthand to set font weights using keyword instead of values
+  @if map_has_key($font-weights, $weight) {
+    $weight: map_get($font-weights, $weight);
+    font-weight: $weight;
+  } @else {
+    @error 'Weight #{$weight} is not a known keyword';
+  }
+}
+
+// [1] - shorthand to set any media query, including max-width queries, using keywords instead of values
+
+@mixin media($width, $type: min) {
+  @if map_has_key($breakpoints, $width) {
+    $width: map_get($breakpoints, $width);
+
+    @if $type == max {
+      $width: $width - 1px;
+    }
+
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  } @else {
+    @error 'The breakpoint #{$width} is unknown';
+  }
+}
+
+// [1] - simple + quick shorthand to hide content from view but not to assitive technology
+
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@mixin link-reset($color: black) {
+  color: $color;
+  text-decoration: none;
+}
+
+@mixin z-index($index) {
+  // [1] - support to use keyword value to keep z-index organisaton neat
+  @if map_has_key($z-index, $index) {
+    $index: map_get($z-index, $index);
+
+    z-index: $index;
+  } @else {
+    @warn 'Custom z-index values are not supported, please use one of the keywords ("base, hover, modal")';
+  }
+}
+
+// - [PAGE SPECIFIC ELEMENTS] -
+
+@mixin button($width: 180px, $inverse: false) {
+  // customisable width
+  @include grid-center;
+  @include max-width($width);
+  @include font-weight(bold);
+  @include link-reset(var(--clr-primary-600));
+  border-radius: 100vw;
+  background: var(--clr-neutral-900);
+  cursor: pointer;
+  height: 48px;
+
+  transition: all 0.35s ease;
+
+  &:hover{
+    background: var(--clr-primary-700);
+    color: var(--clr-neutral-900);
+  }
+
+  // both types of button set in one declaration
+
+  @if ($inverse) {
+    @include link-reset(var(--clr-neutral-900));
+    background: transparent;
+    border: 1px solid var(--clr-neutral-900);
+
+    &:hover{
+      background: var(--clr-neutral-900);
+      color: var(--clr-primary-600);
+    }
+  }
+}
+
+// -- [FLEX + GRID TOOLBOX] --
+
+@mixin flex-cols {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-align {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-justify {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin grid-center {
+  display: grid;
+  place-items: center;
+}
+
+@mixin grid-equal-cols($cols: 2, $size: 1fr) {
+  display: grid;
+  grid-template-columns: repeat($cols, $size);
+}

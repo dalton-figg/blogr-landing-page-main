@@ -1,0 +1,46 @@
+*,
+::before,
+::after {
+  // [1] - improve box-sizing (opinionated)
+  box-sizing: border-box;
+  // [2] - remove all default margins and paddings from the user agent sheet
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  // [1] - improve consistency of font-weights across devices (see mixins.scss)
+  @include smoothing-antialiased;
+  // [2] - ensure any scrolling to sections behaviour is smooth
+  scroll-behavior: smooth;
+}
+
+body {
+  // [1] - increase line-height to be more accessible
+  line-height: 1.5;
+  // [2] - set global font-family with a system-ui fontstack (see variables.scss)
+  font-family: $primary-font;
+  // [3] - set main color across the page
+  color: var(--clr-neutral-300);
+  // [4] - contain all content to 1440px
+  @include container;
+}
+
+img {
+  // [1] - remove excess whitespace from being an inline element
+  display: block;
+  // [2] - fix sizing to be responsive
+  max-width: 100%;
+  height: auto;
+  // [3] - make alt text be more easily differentiated
+  font-style: italic;
+}
+
+// [1] - remove built in typographic styles
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}

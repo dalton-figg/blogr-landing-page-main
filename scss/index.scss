@@ -1,0 +1,309 @@
+@import "../scss/base/base";
+
+// TODO: break out all these styles into layout
+
+// Navigation Bar
+
+.primary-header {
+  position: absolute;
+  top: 0;
+  padding: calc-rem(24);
+  @include z-index(modal);
+  width: 100%;
+
+  @include media(laptop) {
+    padding: calc-rem(63) calc-rem(167);
+  }
+}
+
+.primary-navbar__list {
+  @include flex-align;
+  gap: calc-rem(32);
+  list-style: none;
+  justify-content: space-between;
+
+  @include media(laptop) {
+    justify-content: flex-start;
+  }
+}
+
+.primary-navbar__item:not(
+    .primary-navbar__item--burger,
+    .primary-navbar__item--logo
+  ) {
+  display: none;
+
+  @include media(tablet) {
+    display: grid;
+  }
+}
+
+.primary-navbar__item--login {
+  margin-left: auto;
+}
+
+.primary-navbar__item--burger {
+  cursor: pointer;
+
+  @include media(tablet) {
+    display: none;
+  }
+}
+
+.primary-navbar__item--cta {
+  @include button($width: 135px);
+
+  a {
+    color: inherit;
+  }
+}
+
+.primary-navbar__link {
+  @include link-reset(var(--clr-neutral-900));
+  @include flex-align;
+  gap: calc-rem(8);
+
+  &:hover {
+    text-underline-offset: 5px;
+    text-decoration: underline;
+  }
+}
+
+// Mobile navbar
+
+.mobile-header {
+  position: fixed;
+  top: 0;
+  right: -100vw;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(90deg, hsl(13, 100%, 72%), hsl(353, 100%, 62%));
+  @include z-index(modal);
+  padding: calc-rem(32);
+  transition: all 0.35s ease;
+}
+
+.mobile-navbar__head {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: calc-rem(32);
+}
+
+.mobile-navbar__close {
+  height: 100%;
+}
+
+.mobile-navbar__list {
+  @include flex-align;
+  text-align: center;
+  flex-direction: column;
+  list-style: none;
+  background: var(--clr-neutral-900);
+  padding: calc-rem(24);
+  gap: calc-rem(24);
+  border-radius: calc-rem(16);
+}
+
+.mobile-navbar__divider {
+  width: 90%;
+}
+
+.mobile-navbar__link {
+  @include font-weight(medium);
+  gap: calc-rem(8);
+  @include flex-align;
+  @include link-reset(var(--clr-primary-300));
+}
+
+// Hero
+
+.hero {
+  // background styles including gradient and svg
+  background-position: center;
+  background-image: url(/images/bg-pattern-intro-desktop.svg),
+    linear-gradient(90deg, hsl(13, 100%, 72%), hsl(353, 100%, 62%));
+  // declare typographic styles
+  color: var(--clr-neutral-900);
+  // TODO: hardcoded height
+  height: 600px;
+  // center content
+  text-align: center;
+  @include grid-center;
+  // add curved corner
+  border-bottom-left-radius: calc-rem(99);
+}
+
+.hero__content {
+  @include flex-cols;
+  gap: calc-rem(12);
+}
+
+.hero__title {
+  @include font-size(48);
+}
+
+.hero__copy {
+  @include font-size(19);
+}
+
+.hero__ctas {
+  flex-direction: column;
+  align-items: center;
+  @include flex-justify;
+  gap: calc-rem(16);
+  margin-top: calc-rem(34);
+
+  @include media(phone-wide) {
+    flex-direction: row;
+  }
+}
+
+.hero__cta {
+  @include button($width: 137px);
+}
+
+.hero__cta:last-of-type {
+  @include button($width: 137px, $inverse: true);
+}
+
+// Details Sections
+
+.details {
+  padding-block: calc-rem(60);
+  gap: calc-rem(36);
+  @include flex-cols;
+  @include max-width(330px, true);
+
+  @include media(tablet) {
+    @include max-width(640px, true);
+  }
+
+  @include media(laptop) {
+    padding-block: calc-rem(120);
+    @include max-width(none);
+  }
+}
+
+.details__columns {
+  text-align: center;
+  grid-template-columns: 80px repeat(2, 1fr) 80px;
+
+  @include media(laptop) {
+    display: grid;
+    text-align: left;
+  }
+}
+
+.details__content {
+  grid-column: 2;
+  gap: calc-rem(24);
+  justify-content: center;
+  @include flex-cols;
+  @include max-width(520px, true);
+
+  &--right {
+    grid-column: 3;
+  }
+}
+
+.details__image {
+  grid-column: span 2;
+}
+
+.details__title,
+.details__subtitle {
+  color: var(--clr-primary-300);
+  @include font-weight(medium);
+}
+
+.details__title {
+  text-align: center;
+  @include font-size(39);
+}
+
+.details__subtitle {
+  @include font-size(27);
+}
+
+// State of the Art section
+
+.art {
+  // set positions so image pops out over the background
+  justify-content: space-around;
+  flex-direction: column;
+  @include flex-align;
+  // setup background grad
+  border-bottom-left-radius: calc-rem(99);
+  border-top-right-radius: calc-rem(99);
+  background: url(/images/bg-pattern-circles.svg) no-repeat,
+    linear-gradient(235deg, var(--clr-gradient-300), var(--clr-gradient-200));
+  // TODO: another hardcoded height?
+
+  text-align: center;
+  color: var(--clr-neutral-900);
+  padding: calc-rem(48);
+
+  @include media(laptop) {
+    text-align: left;
+    flex-direction: row;
+    height: 400px;
+  }
+}
+
+.art__content {
+  @include max-width(330px);
+  @include flex-cols;
+  @include media(laptop) {
+    @include max-width(530px);
+  }
+  gap: calc-rem(16);
+}
+
+.art__title {
+  @include font-size(39);
+}
+
+// Footer
+
+.footer {
+  background: var(--clr-neutral-200);
+  border-top-right-radius: calc-rem(99);
+  color: var(--clr-neutral-900);
+}
+
+.footer__columns {
+  display: grid;
+  justify-content: center;
+  text-align: center;
+
+  gap: calc-rem(16);
+  padding: calc-rem(60);
+  @include max-width(1280px, true);
+
+  @include media(tablet) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @include media(laptop) {
+    text-align: left;
+  }
+}
+
+.footer__list {
+  gap: calc-rem(8);
+  @include flex-cols;
+  list-style: none;
+}
+
+.footer__subtitle {
+  margin-bottom: calc-rem(24);
+}
+
+.footer__list-link {
+  @include link-reset(var(--clr-neutral-700));
+
+  &:hover {
+    text-underline-offset: 5px;
+    text-decoration: underline;
+  }
+}
